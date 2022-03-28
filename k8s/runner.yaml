@@ -1,0 +1,7 @@
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: Runner
+metadata:
+  name: aws-eks-runner
+spec:
+  repository: cb-shivam/to-do-app
+  env: []
