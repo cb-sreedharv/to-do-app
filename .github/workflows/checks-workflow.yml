@@ -3,7 +3,7 @@ on: pull_request
 
 jobs:
   checkstyle_job:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, x64]
     name: Checkstyle Job
     steps:
       - name: Checkout
@@ -17,7 +17,7 @@ jobs:
           filter_mode: nofilter
 
   unit_tests_job:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, x64]
     name: Unit Tests Job
     steps:
       - uses: actions/checkout@v2
@@ -26,5 +26,9 @@ jobs:
         with:
           java-version: '8'
           distribution: 'adopt'
+      - name: Set up Maven
+        uses: stCarolas/setup-maven@v4.3
+        with:
+          maven-version: 3.8.2
       - name: Build with Maven
         run: mvn --batch-mode --update-snapshots test
