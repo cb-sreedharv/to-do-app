@@ -16,11 +16,11 @@ public class Task {
   private long taskId;
   private String taskDesc;
 
-  public long getToDoId() {
+  public long getTaskId() {
     return this.taskId;
   }
 
-  public void setToDoId(long taskId) {
+  public void setTaskId(long taskId) {
     this.taskId = taskId;
   }
 
