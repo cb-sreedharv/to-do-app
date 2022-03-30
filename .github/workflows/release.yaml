@@ -40,7 +40,7 @@ jobs:
         run: |
           docker build -t ${{ env.RELEASE_IMAGE }} .
           docker push ${{ env.RELEASE_IMAGE }}
-          sed -i 's/ECR_IMAGE_TAG/${{ env.IMAGE_TAG }}/' k8/app-deploy.yaml
+          sed -i 's/ECR_IMAGE_TAG/${{ env.IMAGE_TAG }}/' k8s/app-deploy.yaml
       - name: Deploy to Kubernetes cluster
         uses: kodermax/kubectl-aws-eks@master
         with:
