@@ -32,7 +32,7 @@ public class ToDoService {
    * @throws TaskNotFoundException - Task with mentioned id does not exist in database.
    * @throws Exception - for Internal Server Errors.
    */
-  public void updateTask(long id, String taskDesc) throws TaskNotFoundException, Exception {
+  public void updateTask(long id, String taskDesc) throws TaskNotFoundException, DataIntegrityViolationException, Exception {
     if (!toDoRepository.findById(id).isPresent()) {
       throw new TaskNotFoundException("Task does not exist");
     }
