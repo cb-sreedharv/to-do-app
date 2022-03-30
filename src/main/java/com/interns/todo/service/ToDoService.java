@@ -27,18 +27,17 @@ public class ToDoService {
   /**
    * Method to update task.
    *
-   * @param id - task object containing task id and new task description.
-   * @param taskDesc - new task description.
+   * @param id   - task object containing task id and new task description.
+   * @param task - new task description.
    * @throws TaskNotFoundException - Task with mentioned id does not exist in database.
-   * @throws Exception - for Internal Server Errors.
+   * @throws Exception             - for Internal Server Errors.
    */
-  public void updateTask(long id, String taskDesc) throws TaskNotFoundException, DataIntegrityViolationException, Exception {
+  public void updateTask(long id, Task task)
+      throws TaskNotFoundException, DataIntegrityViolationException, Exception {
     if (!toDoRepository.findById(id).isPresent()) {
       throw new TaskNotFoundException("Task does not exist");
     }
-    Task task = new Task();
     task.setTaskId(id);
-    task.setTaskDesc(taskDesc);
     toDoRepository.save(task);
   }
 
@@ -47,7 +46,7 @@ public class ToDoService {
    *
    * @param id - id of the task to be deleted.
    * @throws TaskNotFoundException - Task with mentioned id does not exist in database.
-   * @throws Exception - for Internal Server Errors.
+   * @throws Exception             - for Internal Server Errors.
    */
   public void deleteTask(long id) throws TaskNotFoundException, Exception {
     if (!toDoRepository.findById(id).isPresent()) {

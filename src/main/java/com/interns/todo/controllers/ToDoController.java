@@ -56,12 +56,12 @@ public class ToDoController {
    * Method to update a Task.
    *
    * @param id - task object containing task id and new task description.
-   * @param taskDesc - new task description.
+   * @param task - new task description.
    */
   @PutMapping("/todo/{taskId}")
-  public ResponseEntity updateTask(@PathVariable("taskId") long id, @RequestBody String taskDesc) {
+  public ResponseEntity updateTask(@PathVariable("taskId") long id, @RequestBody Task task) {
     try {
-      toDoService.updateTask(id, taskDesc);
+      toDoService.updateTask(id, task);
       return new ResponseEntity(HttpStatus.OK);
     } catch (TaskNotFoundException e) {
       return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
