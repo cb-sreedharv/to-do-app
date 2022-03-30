@@ -14,7 +14,7 @@ public class ToDoService {
   @Autowired
   ToDoRepository toDoRepository;
 
-  public void createTask(Task task) {
+  public void createTask(Task task) throws Exception {
     toDoRepository.save(task);
   }
 
