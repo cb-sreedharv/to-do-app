@@ -6,22 +6,22 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
- * ToDoModel.
+ * Model Class for ToDoItem.
  */
 @Entity
-public class ToDo {
+public class Task {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  private long toDoId;
+  private long taskId;
   private String taskDesc;
 
   public long getToDoId() {
-    return this.toDoId;
+    return this.taskId;
   }
 
   public void setToDoId(long toDoId) {
-    this.toDoId = toDoId;
+    this.taskId = toDoId;
   }
 
   public String getTaskDesc() {

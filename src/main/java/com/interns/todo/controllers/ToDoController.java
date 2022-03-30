@@ -1,8 +1,10 @@
 package com.interns.todo.controllers;
 
-import com.interns.todo.model.ToDo;
+import com.interns.todo.model.Task;
 import com.interns.todo.service.ToDoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,18 +20,18 @@ public class ToDoController {
   ToDoService toDoService;
 
   @GetMapping("/")
-  public String getToDo() {
-    return "ToDoController";
+  public String printString() {
+    return "ToDoList";
   }
 
   @GetMapping("/todo")
-  public Iterable<ToDo> viewAllToDo() {
-    return toDoService.getAllToDo();
+  public Iterable<Task> getList() {
+    return toDoService.getTasks();
   }
 
   @PostMapping("/todo")
-  public Long createToDo(@RequestBody ToDo toDo) {
-    toDoService.saveToDo(toDo);
-    return toDo.getToDoId();
+  public ResponseEntity createToDo(@RequestBody Task task) {
+    toDoService.createTask(task);
+    return new ResponseEntity(HttpStatus.OK);
   }
 }
