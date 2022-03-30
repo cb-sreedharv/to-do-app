@@ -20,8 +20,8 @@ public class Task {
     return this.taskId;
   }
 
-  public void setToDoId(long toDoId) {
-    this.taskId = toDoId;
+  public void setToDoId(long taskId) {
+    this.taskId = taskId;
   }
 
   public String getTaskDesc() {
