@@ -46,7 +46,7 @@ public class ToDoController {
       toDoService.createTask(task);
       return new ResponseEntity(HttpStatus.OK);
     } catch (DataIntegrityViolationException e) {
-      return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+      return new ResponseEntity(e.getMostSpecificCause().getMessage(), HttpStatus.BAD_REQUEST);
     } catch (Exception e) {
       return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -65,6 +65,8 @@ public class ToDoController {
       return new ResponseEntity(HttpStatus.OK);
     } catch (TaskNotFoundException e) {
       return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    } catch (DataIntegrityViolationException e) {
+      return new ResponseEntity(e.getMostSpecificCause().getMessage(), HttpStatus.BAD_REQUEST);
     } catch (Exception e) {
       return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
     }
