@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 /**
  * Spring Boot Application Class.
  */
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
+@SpringBootApplication
 public class ToDoApplication {
   public static void main(String[] args) {
     SpringApplication.run(ToDoApplication.class, args);

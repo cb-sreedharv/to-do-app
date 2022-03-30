@@ -41,6 +41,14 @@ jobs:
           docker build -t ${{ env.RELEASE_IMAGE }} .
           docker push ${{ env.RELEASE_IMAGE }}
           sed -i 's/ECR_IMAGE_TAG/${{ env.IMAGE_TAG }}/' k8s/app-deploy.yaml
+      - name: Deploy MySql to Kubernetes cluster
+        uses: kodermax/kubectl-aws-eks@master
+        with:
+          args: apply -f k8s/mysql-deploy.yaml
+      - name: Deploy MySql to Kubernetes cluster
+        uses: kodermax/kubectl-aws-eks@master
+        with:
+          args: apply -f k8s/mysql-service.yaml
       - name: Deploy to Kubernetes cluster
         uses: kodermax/kubectl-aws-eks@master
         with:
