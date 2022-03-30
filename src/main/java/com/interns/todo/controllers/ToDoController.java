@@ -29,9 +29,19 @@ public class ToDoController {
     return toDoService.getTasks();
   }
 
+  /**
+   * Method to add a Task to ToDo List.
+   *
+   * @param task - Task to be added to the ToDo List.
+   */
   @PostMapping("/todo")
   public ResponseEntity createToDo(@RequestBody Task task) {
-    toDoService.createTask(task);
-    return new ResponseEntity(HttpStatus.OK);
+    try {
+      toDoService.createTask(task);
+      return new ResponseEntity(HttpStatus.OK);
+    } catch (Exception e) {
+      return new ResponseEntity(HttpStatus.BAD_REQUEST);
+    }
+
   }
 }
