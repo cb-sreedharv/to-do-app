@@ -44,8 +44,8 @@ jobs:
       - name: Deploy to Kubernetes cluster
         uses: kodermax/kubectl-aws-eks@master
         with:
-          args: apply -f k8/app-deploy.yaml
+          args: apply -f k8s/app-deploy.yaml
       - name: Deploy to Kubernetes cluster
         uses: kodermax/kubectl-aws-eks@master
         with:
-          args: apply -f k8/app-service.yaml
+          args: apply -f k8s/app-service.yaml
