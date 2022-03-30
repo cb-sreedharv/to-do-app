@@ -20,6 +20,6 @@ spec:
     spec:
       containers:
         - name: app
-          image: cbshivam/todoapp
+          image: 127322177288.dkr.ecr.us-west-1.amazonaws.com/intern/todo:ECR_IMAGE_TAG
           ports:
             - containerPort: 80

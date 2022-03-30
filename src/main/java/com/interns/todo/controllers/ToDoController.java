@@ -10,6 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class ToDoController {
   @GetMapping("/")
   public String getToDo() {
-    return "Todocontroller";
+    return "ToDoApp";
   }
 }
