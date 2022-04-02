@@ -31,7 +31,4 @@ public class Task {
   public void setTaskDesc(String taskDesc) {
     this.taskDesc = taskDesc;
   }
-
-
-
 }
