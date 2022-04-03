@@ -17,6 +17,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -37,10 +38,12 @@ public class ToDoControllerIntegrationTest {
     mockMvc.perform(post("/todo")
             .contentType(MediaType.APPLICATION_JSON)
             .content(gson.toJson(task)))
+        .andDo(print())
         .andExpect(status().isOk());
 
     Optional<Task> task1 = toDoRepository.findById(1L);
-    assertThat(task1.get().getTaskDesc()).isEqualTo("Test Task");
+    assertThat(task1.isPresent()).isTrue();
+    task1.ifPresent(value -> assertThat(value.getTaskDesc()).isEqualTo("Test Task"));
   }
 
   @Test
@@ -53,6 +56,7 @@ public class ToDoControllerIntegrationTest {
     mockMvc.perform(post("/todo")
             .contentType(MediaType.APPLICATION_JSON)
             .content(gson.toJson(task)))
+        .andDo(print())
         .andExpect(status().isBadRequest());
 
     Iterable<Task> task1 = toDoRepository.findAll();
