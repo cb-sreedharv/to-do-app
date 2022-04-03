@@ -2,9 +2,9 @@ name: Java Code Check
 on: pull_request
 
 jobs:
-  unit_tests_job:
+  tests_job:
     runs-on: ubuntu-latest
-    name: Unit Tests Job
+    name: Tests Job
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK 8
