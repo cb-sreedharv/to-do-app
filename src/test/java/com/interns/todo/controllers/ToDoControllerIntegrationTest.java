@@ -121,7 +121,17 @@ public class ToDoControllerIntegrationTest {
   }
 
   @Test
-  public void testF_deleteTaskTestSuccessfully() throws Exception {
+  public void testF_deleteTaskTestUnSuccessfully() throws Exception {
+    mockMvc.perform(delete("/todo/2"))
+        .andDo(print())
+        .andExpect(status().isBadRequest());
+
+    Optional<Task> task1 = toDoRepository.findById(1L);
+    assertThat(task1.isPresent()).isTrue();
+  }
+
+  @Test
+  public void testG_deleteTaskTestSuccessfully() throws Exception {
     mockMvc.perform(delete("/todo/1"))
         .andDo(print())
         .andExpect(status().isOk());
