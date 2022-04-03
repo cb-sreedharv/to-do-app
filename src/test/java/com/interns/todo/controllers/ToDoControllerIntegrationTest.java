@@ -17,8 +17,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
@@ -89,13 +94,13 @@ public class ToDoControllerIntegrationTest {
   }
 
   @Test
-  public void testD_CreateTaskTestUnSuccessfully() throws Exception {
+  public void testD_UpdateTaskTestUnSuccessfully() throws Exception {
     Task task = new Task();
     String s = String.format("%0" + 300 + "d", 0).replace('0', 't');
     task.setTaskDesc(s);
     Gson gson = new Gson();
 
-    mockMvc.perform(put("/todo")
+    mockMvc.perform(put("/todo/1")
             .contentType(MediaType.APPLICATION_JSON)
             .content(gson.toJson(task)))
         .andDo(print())
@@ -106,5 +111,22 @@ public class ToDoControllerIntegrationTest {
     task1.ifPresent(value -> assertThat(value.getTaskDesc()).isEqualTo("Modified Task"));
   }
 
+  @Test
+  public void testE_getTaskTestSuccessfully() throws Exception {
+    mockMvc.perform(get("/todo"))
+        .andDo(print())
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$", hasSize(1)))
+        .andExpect(jsonPath("$[0].taskDesc", is("Modified Task")));
+  }
 
+  @Test
+  public void testF_deleteTaskTestSuccessfully() throws Exception {
+    mockMvc.perform(delete("/todo/1"))
+        .andDo(print())
+        .andExpect(status().isOk());
+
+    Optional<Task> task1 = toDoRepository.findById(1L);
+    assertThat(task1.isPresent()).isFalse();
+  }
 }
