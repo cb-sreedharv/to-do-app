@@ -18,6 +18,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
@@ -44,12 +45,6 @@ public class ToDoControllerIntegrationTest {
         .andDo(print())
         .andExpect(status().isOk());
 
-    Iterable<Task> task2 = toDoRepository.findAll();
-    for (Task t : task2) {
-      System.out.println(t.getTaskId());
-      System.out.println(t.getTaskDesc());
-    }
-
     Optional<Task> task1 = toDoRepository.findById(1L);
     assertThat(task1.isPresent()).isTrue();
     task1.ifPresent(value -> assertThat(value.getTaskDesc()).isEqualTo("Test Task"));
@@ -69,10 +64,46 @@ public class ToDoControllerIntegrationTest {
         .andExpect(status().isBadRequest());
 
     Iterable<Task> task1 = toDoRepository.findAll();
+    int count = 0;
     for (Task t : task1) {
-      System.out.println(t.getTaskId());
-      System.out.println(t.getTaskDesc());
+      count++;
     }
+    assertThat(count).isEqualTo(1);
+  }
+
+  @Test
+  public void testC_updateTaskTestSuccessfully() throws Exception {
+    Task task = new Task();
+    task.setTaskDesc("Modified Task");
+    Gson gson = new Gson();
+
+    mockMvc.perform(put("/todo/1")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(gson.toJson(task)))
+        .andDo(print())
+        .andExpect(status().isOk());
+
+    Optional<Task> task1 = toDoRepository.findById(1L);
+    assertThat(task1.isPresent()).isTrue();
+    task1.ifPresent(value -> assertThat(value.getTaskDesc()).isEqualTo("Modified Task"));
+  }
+
+  @Test
+  public void testD_CreateTaskTestUnSuccessfully() throws Exception {
+    Task task = new Task();
+    String s = String.format("%0" + 300 + "d", 0).replace('0', 't');
+    task.setTaskDesc(s);
+    Gson gson = new Gson();
+
+    mockMvc.perform(post("/todo")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(gson.toJson(task)))
+        .andDo(print())
+        .andExpect(status().isBadRequest());
+
+    Optional<Task> task1 = toDoRepository.findById(1L);
+    assertThat(task1.isPresent()).isTrue();
+    task1.ifPresent(value -> assertThat(value.getTaskDesc()).isEqualTo("Modified Task"));
   }
 
 
