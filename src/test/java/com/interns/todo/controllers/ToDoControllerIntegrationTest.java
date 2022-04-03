@@ -95,7 +95,7 @@ public class ToDoControllerIntegrationTest {
     task.setTaskDesc(s);
     Gson gson = new Gson();
 
-    mockMvc.perform(post("/todo")
+    mockMvc.perform(put("/todo")
             .contentType(MediaType.APPLICATION_JSON)
             .content(gson.toJson(task)))
         .andDo(print())
