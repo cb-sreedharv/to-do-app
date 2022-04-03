@@ -3,8 +3,10 @@ package com.interns.todo.controllers;
 import com.google.gson.Gson;
 import com.interns.todo.model.Task;
 import com.interns.todo.repository.ToDoRepository;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,6 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ToDoControllerIntegrationTest {
   @Autowired
   private MockMvc mockMvc;
@@ -30,7 +33,7 @@ public class ToDoControllerIntegrationTest {
   private ToDoRepository toDoRepository;
 
   @Test
-  public void createTaskTestSuccessfully() throws Exception {
+  public void testA_createTaskTestSuccessfully() throws Exception {
     Task task = new Task();
     task.setTaskDesc("Test Task");
     Gson gson = new Gson();
@@ -53,7 +56,7 @@ public class ToDoControllerIntegrationTest {
   }
 
   @Test
-  public void createTaskTestUnSuccessfully() throws Exception {
+  public void testB_CreateTaskTestUnSuccessfully() throws Exception {
     Task task = new Task();
     String s = String.format("%0" + 300 + "d", 0).replace('0', 't');
     task.setTaskDesc(s);
