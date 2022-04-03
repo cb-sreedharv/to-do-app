@@ -41,6 +41,12 @@ public class ToDoControllerIntegrationTest {
         .andDo(print())
         .andExpect(status().isOk());
 
+    Iterable<Task> task2 = toDoRepository.findAll();
+    for (Task t : task2) {
+      System.out.println(t.getTaskId());
+      System.out.println(t.getTaskDesc());
+    }
+
     Optional<Task> task1 = toDoRepository.findById(1L);
     assertThat(task1.isPresent()).isTrue();
     task1.ifPresent(value -> assertThat(value.getTaskDesc()).isEqualTo("Test Task"));
