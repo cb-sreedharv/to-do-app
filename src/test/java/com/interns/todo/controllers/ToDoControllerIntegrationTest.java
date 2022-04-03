@@ -40,7 +40,7 @@ public class ToDoControllerIntegrationTest {
         .andExpect(status().isOk());
 
     Optional<Task> task1 = toDoRepository.findById(1L);
-    assertThat(task1.get().getTaskDesc()).isEqualTo("Test Task");
+    assertThat(task1.get().getTaskDesc()).isEqualTo("Test Tasks");
   }
 
 
