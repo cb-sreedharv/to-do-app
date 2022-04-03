@@ -29,7 +29,7 @@ public class ToDoControllerIntegrationTest {
   private ToDoRepository toDoRepository;
 
   @Test
-  public void createTaskTest() throws Exception {
+  public void createTaskTestSuccessfully() throws Exception {
     Task task = new Task();
     task.setTaskDesc("Test Task");
     Gson gson = new Gson();
@@ -40,7 +40,26 @@ public class ToDoControllerIntegrationTest {
         .andExpect(status().isOk());
 
     Optional<Task> task1 = toDoRepository.findById(1L);
-    assertThat(task1.get().getTaskDesc()).isEqualTo("Test Tasks");
+    assertThat(task1.get().getTaskDesc()).isEqualTo("Test Task");
+  }
+
+  @Test
+  public void createTaskTestUnSuccessfully() throws Exception {
+    Task task = new Task();
+    String s = String.format("%0" + 300 + "d", 0).replace('0', 't');
+    task.setTaskDesc(s);
+    Gson gson = new Gson();
+
+    mockMvc.perform(post("/todo")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(gson.toJson(task)))
+        .andExpect(status().isBadRequest());
+
+    Iterable<Task> task1 = toDoRepository.findAll();
+    for (Task t : task1) {
+      System.out.println(t.getTaskId());
+      System.out.println(t.getTaskDesc());
+    }
   }
 
 
