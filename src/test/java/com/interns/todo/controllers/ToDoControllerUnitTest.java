@@ -16,6 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.google.gson.Gson;
+import com.interns.todo.exceptions.TaskNotFoundException;
 import com.interns.todo.model.Task;
 import com.interns.todo.service.ToDoService;
 import java.util.Arrays;
@@ -173,6 +174,18 @@ public class ToDoControllerUnitTest {
             .content(gson.toJson(task1)))
         .andDo(print())
         .andExpect(status().isInternalServerError());
+  }
+
+  @Test
+  public void deleteTaskUnsuccessfully() throws Exception {
+    doThrow(TaskNotFoundException.class)
+        .when(toDoService)
+        .deleteTask(Mockito.any(Long.class));
+
+    this.mockMvc.perform(delete("/todo/4"))
+        .andDo(print())
+        .andExpect(status().isBadRequest());
+    verify(toDoService).deleteTask(4);
   }
 
   @Test

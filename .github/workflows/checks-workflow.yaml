@@ -16,9 +16,9 @@ jobs:
           fail_on_error: true
           filter_mode: nofilter
 
-  unit_tests_job:
+  tests_job:
     runs-on: [self-hosted, linux, x64]
-    name: Unit Tests Job
+    name: Tests Job
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK 8
@@ -26,6 +26,11 @@ jobs:
         with:
           java-version: '8'
           distribution: 'adopt'
+      - name: Set up MySQL DB
+        uses: mirromutth/mysql-action@v1.1
+        with:
+          mysql root password: root # Required if "mysql user" is empty, default is empty. The root superuser password
+          mysql database: test
       - name: Set up Maven
         uses: stCarolas/setup-maven@v4.3
         with:
