@@ -1,0 +1,14 @@
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: HorizontalRunnerAutoscaler
+metadata:
+  name: aws-eks-runner-autoscaler
+spec:
+  scaleTargetRef:
+    name: aws-eks-runner-deployment
+  scaleDownDelaySecondsAfterScaleOut: 120
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+    - type: TotalNumberOfQueuedAndInProgressWorkflowRuns
+      repositoryNames:
+        - cb-shivam/to-do-app
