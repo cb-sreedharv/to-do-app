@@ -3,7 +3,7 @@ on: pull_request
 
 jobs:
   checkstyle_job:
-    runs-on: [self-hosted, linux, x64]
+    runs-on: custom-runner
     name: Checkstyle Job
     steps:
       - name: Checkout
@@ -17,7 +17,7 @@ jobs:
           filter_mode: nofilter
 
   tests_job:
-    runs-on: [self-hosted, linux, x64]
+    runs-on: custom-runner
     name: Tests Job
     steps:
       - uses: actions/checkout@v2
