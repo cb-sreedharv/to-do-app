@@ -5,7 +5,7 @@ metadata:
 spec:
   scaleTargetRef:
     name: aws-eks-runner-deployment
-  scaleDownDelaySecondsAfterScaleOut: 300
+  scaleDownDelaySecondsAfterScaleOut: 120
   minReplicas: 1
   maxReplicas: 10
   metrics:
