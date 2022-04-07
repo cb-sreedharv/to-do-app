@@ -19,6 +19,11 @@ jobs:
   tests_job:
     runs-on: custom-runner
     name: Tests Job
+    container:
+      image: 127322177288.dkr.ecr.us-west-1.amazonaws.com/cb-image:latest
+      credentials:
+        username: AWS
+        password: ${{ secrets.AWS_ECR_PASSWORD }}
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK 8
