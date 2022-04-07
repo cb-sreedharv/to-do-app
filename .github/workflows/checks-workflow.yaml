@@ -28,6 +28,8 @@ jobs:
       mysql:
         image: mysql
         env:
+          MYSQL_USER: user
+          MYSQL_PASSWORD: password
           MYSQL_DATABASE: test
           MYSQL_ROOT_PASSWORD: root
         ports:
