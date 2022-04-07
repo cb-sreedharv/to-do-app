@@ -24,10 +24,16 @@ jobs:
       credentials:
         username: AWS
         password: ${{ secrets.AWS_ECR_PASSWORD }}
+    services:
+      mysql:
+        image: mysql
+        env:
+          MYSQL_DATABASE: test
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306:3306
     steps:
       - uses: actions/checkout@v2
-      - name: Set up MySQL DB
-        run: mysql -u root -h 127.0.0.1 -e 'SELECT VERSION()'
       - name: Set up Maven
         uses: stCarolas/setup-maven@v4.3
         with:
