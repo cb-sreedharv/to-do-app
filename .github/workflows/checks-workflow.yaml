@@ -24,6 +24,12 @@ jobs:
       credentials:
         username: AWS
         password: ${{ secrets.AWS_ECR_PASSWORD }}
+    services:
+      mysql-test:
+        image: mysql
+        ports:
+          - 3306:3306
+        options: -e MYSQL_ROOT_PASSWORD=root -e MYSQL_ROOT_HOST=% -e MYSQL_DATABASE=test
     steps:
       - uses: actions/checkout@v2
       - name: Set up Maven
