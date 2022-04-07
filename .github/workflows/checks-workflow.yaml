@@ -24,23 +24,18 @@ jobs:
       credentials:
         username: AWS
         password: ${{ secrets.AWS_ECR_PASSWORD }}
-    env:
-      DB_PASSWORD: "root"
-      DB_DATABASE: "test"
-      DB_USER: "root"
+    services:
+      mysql:
+        image: mysql
+        ports:
+          - 3306:3306
+        options: -e MYSQL_ROOT_PASSWORD=root -e MYSQL_ROOT_HOST=% -e MYSQL_DATABASE=test
     steps:
       - uses: actions/checkout@v2
       - name: Set up Maven
         uses: stCarolas/setup-maven@v4.3
         with:
           maven-version: 3.8.2
-      - name: Set Up MySQL
-        run: |
-          apt install sudo
-          sudo apt update -y
-          sudo apt install mysql-server -y
-          sudo /etc/init.d/mysql start
-          mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}
       - name: Build with Maven
         run: mvn --batch-mode --update-snapshots test
   tests_job_2:
