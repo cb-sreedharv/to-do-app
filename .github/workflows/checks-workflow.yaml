@@ -36,7 +36,7 @@ jobs:
           maven-version: 3.8.2
       - name: Set Up MySQL
         run: |
-          sudo /etc/init.d/mysql start
+          /etc/init.d/mysql start
           mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}
       - name: Build with Maven
         run: mvn --batch-mode --update-snapshots test
