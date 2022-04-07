@@ -37,8 +37,8 @@ jobs:
       - name: Set Up MySQL
         run: |
           apt install sudo
-          sudo apt update
-          sudo apt install mysql-server
+          sudo apt update -y
+          sudo apt install mysql-server -y
           sudo /etc/init.d/mysql start
           mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}
       - name: Build with Maven
