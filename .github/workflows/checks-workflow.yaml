@@ -28,9 +28,9 @@ jobs:
       mysql:
         image: mysql
         env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: test
-          MYSQL_ROOT_HOST: '%'
+          MYSQL_ROOT_PASSWORD: "root"
+          MYSQL_DATABASE: "test"
+          MYSQL_ROOT_HOST: "%"
         ports:
           - 3306:3306
     steps:
