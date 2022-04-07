@@ -32,10 +32,10 @@ jobs:
           java-version: '8'
           distribution: 'adopt'
       - name: Set up MySQL DB
-        uses: mirromutth/mysql-action@v1.1
+        uses: shogo82148/actions-setup-mysql@v1
         with:
-          mysql root password: root # Required if "mysql user" is empty, default is empty. The root superuser password
-          mysql database: test
+          root-password: root # Required if "mysql user" is empty, default is empty. The root superuser password
+      - run: mysql -u root -p root -h 127.0.0.1 -e 'CREATE DATABASE test'
       - name: Set up Maven
         uses: stCarolas/setup-maven@v4.3
         with:
