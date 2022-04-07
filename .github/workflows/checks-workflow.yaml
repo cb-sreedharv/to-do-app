@@ -26,12 +26,8 @@ jobs:
         password: ${{ secrets.AWS_ECR_PASSWORD }}
     steps:
       - uses: actions/checkout@v2
-      - run: java -version
       - name: Set up MySQL DB
-        uses: shogo82148/actions-setup-mysql@v1
-        with:
-          root-password: root # Required if "mysql user" is empty, default is empty. The root superuser password
-      - run: mysql -u root -p root -h 127.0.0.1 -e 'CREATE DATABASE test'
+        run: mysql -u root -h 127.0.0.1 -e 'SELECT VERSION()'
       - name: Set up Maven
         uses: stCarolas/setup-maven@v4.3
         with:
